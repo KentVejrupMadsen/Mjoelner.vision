@@ -1,1 +1,10 @@
 pytest
+numpy
+requests
+pillow
+opencv-python
+keras
+keras-core
+keras-cv
+tensorflow
+wandb
