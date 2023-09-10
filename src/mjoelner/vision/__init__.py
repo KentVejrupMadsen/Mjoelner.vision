@@ -1,6 +1,3 @@
-from mjoelner.vision.conversion         \
-    import VisionConversion
-
 from mjoelner.vision.image              \
     import VisionImage
 

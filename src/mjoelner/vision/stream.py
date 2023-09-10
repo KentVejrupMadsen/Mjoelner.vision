@@ -1,6 +1,5 @@
-from mjoelner.vision    \
-    import              \
-    VisionConversion
+from mjoelner.vision.conversions \
+    import VisionConversion
 
 from mjoelner.vision.setup \
     import setup_conversion
