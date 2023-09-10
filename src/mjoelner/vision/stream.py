@@ -1,10 +1,12 @@
 from mjoelner.vision    \
     import              \
-    VisionConversion,   \
-    Hook
+    VisionConversion
 
 from mjoelner.vision.setup \
     import setup_conversion
+
+from mjoelner.vision.hooks \
+    import Hook
 
 from cv2 \
     import VideoCapture

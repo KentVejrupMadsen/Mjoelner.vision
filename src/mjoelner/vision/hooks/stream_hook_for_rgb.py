@@ -1,7 +1,5 @@
-from mjoelner.vision        \
-    import                  \
-    Hook,                   \
-    VisionStreamProperties
+from mjoelner.vision.hooks.hook \
+    import Hook
 
 
 class StreamHookForRGB(
@@ -9,19 +7,19 @@ class StreamHookForRGB(
 ):
     def __init__(
         self,
-        vsp: VisionStreamProperties
+        vsp
     ):
         super().__init__()
         self.properties = vsp
 
     def get_properties(
         self
-    ) -> VisionStreamProperties:
+    ):
         return self.properties
 
     def set_properties(
         self,
-        properties: VisionStreamProperties
+        properties
     ) -> None:
         self.properties = properties
 

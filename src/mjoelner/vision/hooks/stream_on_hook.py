@@ -1,6 +1,5 @@
-from mjoelner.vision        \
-    import                  \
-    Hook
+from mjoelner.vision.hooks.hook \
+    import Hook
 
 
 class StreamOnHook(

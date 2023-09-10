@@ -2,25 +2,48 @@ def setup_conversion(
     stream,
     to_type: str
 ):
-    from mjoelner.vision.hooks \
-        import StreamHookForRGB
-
-    from mjoelner.vision \
-        import VisionStreamProperties
 
     if to_type.lower() == '2rgb':
         stream.set_hook(
-            StreamHookForRGB(
-                VisionStreamProperties(
-                    stream
-                )
+            generate_rgb_hook(
+                stream
             )
         )
 
+    if to_type.lower() == 'on':
+        stream.set_hook(
+            generate_on_hook()
+        )
+
+
+def generate_rgb_hook(
+    stream
+):
+    from mjoelner.vision.hooks \
+        import StreamHookForRGB
+
+    hook = StreamHookForRGB(
+        generate_vision_properties_for_stream(
+            stream
+        )
+    )
+
+    return hook
+
+
+def generate_on_hook():
     from mjoelner.vision.hooks \
         import StreamOnHook
 
-    if to_type.lower() == 'on':
-        stream.set_hook(
-            StreamOnHook()
-        )
+    return StreamOnHook()
+
+
+def generate_vision_properties_for_stream(
+    stream
+):
+    from mjoelner.vision \
+        import VisionStreamProperties
+
+    return VisionStreamProperties(
+        stream
+    )

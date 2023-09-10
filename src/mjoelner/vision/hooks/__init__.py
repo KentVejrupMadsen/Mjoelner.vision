@@ -1,3 +1,6 @@
+from mjoelner.vision.hooks.hook \
+    import Hook
+
 from mjoelner.vision.hooks.stream_hook_for_rgb \
     import StreamHookForRGB
 
