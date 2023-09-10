@@ -3,9 +3,11 @@ from cv2                    \
     CAP_PROP_FRAME_WIDTH,   \
     CAP_PROP_FRAME_HEIGHT,  \
     CAP_PROP_FPS,           \
-    CAP_PROP_POS_MSEC,      \
     CAP_PROP_FRAME_COUNT,   \
-    CAP_PROP_CONVERT_RGB
+    CAP_PROP_CONVERT_RGB,   \
+    CAP_PROP_POS_FRAMES,    \
+    CAP_PROP_POS_MSEC,      \
+    CAP_PROP_BITRATE
 
 from mjoelner.vision \
     import VisionStream
@@ -56,12 +58,30 @@ class VisionStreamProperties:
             )
         )
 
-    def get_current_position(
+    def get_current_position_in_milliseconds(
         self
     ):
         return float(
             self._get_property(
                 CAP_PROP_POS_MSEC
+            )
+        )
+
+    def get_current_position_by_frames(
+            self
+    ):
+        return int(
+            self._get_property(
+                CAP_PROP_POS_FRAMES
+            )
+        )
+
+    def get_bitrate(
+        self
+    ):
+        return float(
+            self._get_property(
+                CAP_PROP_BITRATE
             )
         )
 

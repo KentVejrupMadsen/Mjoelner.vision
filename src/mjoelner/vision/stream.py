@@ -6,6 +6,11 @@ from mjoelner.vision    \
 from mjoelner.vision.setup.setup_conversion \
     import setup_conversion
 
+from PIL.Image  \
+    import      \
+    fromarray,  \
+    Image
+
 from cv2 \
     import VideoCapture
 
@@ -28,6 +33,7 @@ class VisionStream:
         self.is_done: bool = False
 
         self.conversion: VisionConversion | None = VisionConversion()
+        self.buffer_image: ndarray | None = None
 
         if automatic_conversion:
             setup_conversion(
@@ -44,7 +50,8 @@ class VisionStream:
             self.capture_device,    \
             self.conversion,        \
             self.is_done,           \
-            self.hook
+            self.hook,              \
+            self.buffer_image
 
     # On action
     def stream(
@@ -53,7 +60,9 @@ class VisionStream:
         frame = self.capture()
 
         if frame is None:
-            raise IOError('Stream is done')
+            raise IOError(
+                'Stream is done'
+            )
 
         return frame
 
@@ -74,7 +83,11 @@ class VisionStream:
                     image
                 )
 
-        return image
+        self.set_buffer_image(
+            image
+        )
+
+        return self.get_buffer_image()
 
     # State Management
     def is_hook_empty(
@@ -138,3 +151,29 @@ class VisionStream:
         value: VideoCapture
     ) -> None:
         self.capture_device = value
+
+    def get_buffer_image_as_pil(
+        self
+    ) -> None | Image:
+        if not self.is_buffer_image_empty():
+            return fromarray(
+                self.get_buffer_image()
+            )
+
+        return None
+
+    def get_buffer_image(
+        self
+    ) -> ndarray:
+        return self.buffer_image
+
+    def set_buffer_image(
+        self,
+        image: ndarray
+    ) -> None:
+        self.buffer_image = image
+
+    def is_buffer_image_empty(
+        self
+    ) -> bool:
+        return self.buffer_image is None

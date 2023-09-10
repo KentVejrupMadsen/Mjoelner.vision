@@ -4,6 +4,21 @@ from mjoelner.vision \
 location_of_video: str = 'C:\\Users\\Kentv\\Videos\\Halo  The Master Chief Collection\\Halo  The Master Chief Collection 2023.09.10 - 13.33.16.03.mp4'
 
 
+def no_content():
+    print()
+
+
+def print_values(
+    key: str,
+    value: str
+):
+    print(
+        key.upper(),
+        ':',
+        value
+    )
+
+
 def test_stream_can_open():
     global location_of_video
     vs = VisionStream(
@@ -27,7 +42,11 @@ def test_stream_properties():
     vs = VisionStream(
         location_of_video
     )
-    properties = VisionStreamProperties(vs)
+
+    properties = VisionStreamProperties(
+        vs
+    )
+
     counter = 0
 
     while vs.is_open():
@@ -37,35 +56,71 @@ def test_stream_properties():
         if counter >= 500:
             break
 
-    print()
-    print(
-        'width: ',
-        properties.get_frame_width()
+    print_content(
+        properties
     )
 
-    print(
-        'height: ',
-        properties.get_frame_height()
+
+def print_content(
+        properties: VisionStreamProperties
+):
+
+    no_content()
+
+    print_values(
+        'bit rate',
+        str(
+            properties.get_bitrate()
+        )
     )
 
-    print(
-        'total number of frames: ',
-        properties.get_total_number_of_frames()
+    print_values(
+        'width',
+        str(
+            properties.get_frame_width()
+        )
     )
 
-    print(
-        'should convert: ',
-        properties.get_convert_to_rgb()
+    print_values(
+        'height',
+        str(
+            properties.get_frame_height()
+        )
     )
 
-    print(
-        'fps: ',
-        properties.get_frames_per_second()
+    print_values(
+        'total number of frames',
+        str(
+            properties.get_total_number_of_frames()
+        )
     )
 
-    print(
-        'current position: ',
-        properties.get_current_position()
+    print_values(
+        'should convert',
+        str(
+            properties.get_convert_to_rgb()
+        )
+    )
+
+    print_values(
+        'fps',
+        str(
+            properties.get_frames_per_second()
+        )
+    )
+
+    print_values(
+        'current position',
+        str(
+            properties.get_current_position_by_frames()
+        )
+    )
+
+    print_values(
+        'current position in msec',
+        str(
+            properties.get_current_position_in_milliseconds()
+        )
     )
 
 
