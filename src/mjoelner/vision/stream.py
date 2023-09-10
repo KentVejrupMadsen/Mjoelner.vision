@@ -131,6 +131,11 @@ class VisionStream:
     ) -> None:
         self.is_done = value
 
+    def get_keep_run(
+        self
+    ) -> bool:
+        return not self.get_is_done()
+
     def release(
         self
     ):

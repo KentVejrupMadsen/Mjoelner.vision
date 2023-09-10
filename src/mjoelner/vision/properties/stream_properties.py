@@ -1,13 +1,14 @@
-from cv2                    \
-    import                  \
-    CAP_PROP_FRAME_WIDTH,   \
-    CAP_PROP_FRAME_HEIGHT,  \
-    CAP_PROP_FPS,           \
-    CAP_PROP_FRAME_COUNT,   \
-    CAP_PROP_CONVERT_RGB,   \
-    CAP_PROP_POS_FRAMES,    \
-    CAP_PROP_POS_MSEC,      \
-    CAP_PROP_BITRATE
+from cv2                            \
+    import                          \
+    CAP_PROP_FRAME_WIDTH,           \
+    CAP_PROP_FRAME_HEIGHT,          \
+    CAP_PROP_FPS,                   \
+    CAP_PROP_FRAME_COUNT,           \
+    CAP_PROP_CONVERT_RGB,           \
+    CAP_PROP_POS_FRAMES,            \
+    CAP_PROP_POS_MSEC,              \
+    CAP_PROP_BITRATE,               \
+    CAP_PROP_CHANNEL
 
 from mjoelner.vision \
     import VisionStream
@@ -22,7 +23,7 @@ class VisionStreamProperties:
 
     def get_stream(
         self
-    ) -> VisionStream:
+    ) -> VisionStream | None:
         return self.stream
 
     def set_stream(
@@ -33,7 +34,7 @@ class VisionStreamProperties:
 
     def get_frame_width(
         self
-    ):
+    ) -> int | None:
         return int(
             self._get_property(
                 CAP_PROP_FRAME_WIDTH
@@ -42,7 +43,7 @@ class VisionStreamProperties:
 
     def get_frame_height(
         self
-    ):
+    ) -> int | None:
         return int(
             self._get_property(
                 CAP_PROP_FRAME_HEIGHT
@@ -51,7 +52,7 @@ class VisionStreamProperties:
 
     def get_frames_per_second(
         self
-    ):
+    ) -> float | None:
         return float(
             self._get_property(
                 CAP_PROP_FPS
@@ -60,7 +61,7 @@ class VisionStreamProperties:
 
     def get_current_position_in_milliseconds(
         self
-    ):
+    ) -> float | None:
         return float(
             self._get_property(
                 CAP_PROP_POS_MSEC
@@ -69,7 +70,7 @@ class VisionStreamProperties:
 
     def get_current_position_by_frames(
             self
-    ):
+    ) -> int | None:
         return int(
             self._get_property(
                 CAP_PROP_POS_FRAMES
@@ -78,7 +79,7 @@ class VisionStreamProperties:
 
     def get_bitrate(
         self
-    ):
+    ) -> float | None:
         return float(
             self._get_property(
                 CAP_PROP_BITRATE
@@ -87,7 +88,7 @@ class VisionStreamProperties:
 
     def get_total_number_of_frames(
             self
-    ):
+    ) -> int | None:
         return int(
             self._get_property(
                 CAP_PROP_FRAME_COUNT
@@ -96,7 +97,7 @@ class VisionStreamProperties:
 
     def get_convert_to_rgb(
         self
-    ):
+    ) -> bool | None:
         return bool(
             self._get_property(
                 CAP_PROP_CONVERT_RGB
@@ -110,5 +111,5 @@ class VisionStreamProperties:
         return self.get_stream()    \
             .get_capture_device()   \
             .get(
-            property_to_retrieve
-        )
+                property_to_retrieve
+            )
