@@ -3,13 +3,8 @@ from mjoelner.vision    \
     VisionConversion,   \
     Hook
 
-from mjoelner.vision.setup.setup_conversion \
+from mjoelner.vision.setup \
     import setup_conversion
-
-from PIL.Image  \
-    import      \
-    fromarray,  \
-    Image
 
 from cv2 \
     import VideoCapture
@@ -23,7 +18,7 @@ class VisionStream:
         self,
         device_capture: str,
         automatic_conversion: bool = True,
-        conversion_type: str = 'on'
+        conversion_type: str = '2rgb'
     ):
         self.capture_device = VideoCapture(
             device_capture
@@ -151,16 +146,6 @@ class VisionStream:
         value: VideoCapture
     ) -> None:
         self.capture_device = value
-
-    def get_buffer_image_as_pil(
-        self
-    ) -> None | Image:
-        if not self.is_buffer_image_empty():
-            return fromarray(
-                self.get_buffer_image()
-            )
-
-        return None
 
     def get_buffer_image(
         self
