@@ -1,4 +1,4 @@
-from mjoelner.vision.conversion \
+from mjoelner.vision \
     import VisionConversion
 
 from cv2 \

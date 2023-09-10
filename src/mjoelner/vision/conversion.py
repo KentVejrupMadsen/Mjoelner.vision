@@ -50,7 +50,7 @@ class VisionConversion:
     def __del__(self):
         del self.conversion_format
 
-    def conversion(
+    def convert(
         self,
         frame
     ):
