@@ -7,5 +7,3 @@ from mjoelner.vision.image              \
 from mjoelner.vision.stream             \
     import VisionStream
 
-from mjoelner.vision.stream_properties  \
-    import VisionStreamProperties

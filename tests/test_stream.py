@@ -1,5 +1,9 @@
 from mjoelner.vision \
-    import VisionStream, VisionStreamProperties
+    import VisionStream
+
+from mjoelner.vision.properties.stream_properties \
+    import VisionStreamProperties
+
 
 location_of_video: str = 'C:\\Users\\Kentv\\Videos\\Halo  The Master Chief Collection\\Halo  The Master Chief Collection 2023.09.10 - 13.33.16.03.mp4'
 

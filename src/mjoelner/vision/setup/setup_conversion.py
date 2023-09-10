@@ -41,7 +41,7 @@ def generate_on_hook():
 def generate_vision_properties_for_stream(
     stream
 ):
-    from mjoelner.vision \
+    from mjoelner.vision.properties \
         import VisionStreamProperties
 
     return VisionStreamProperties(
