@@ -1,3 +1,6 @@
+from mjoelner.vision.hook               \
+    import Hook
+
 from mjoelner.vision.conversion         \
     import VisionConversion
 

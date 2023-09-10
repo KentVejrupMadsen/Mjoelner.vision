@@ -47,7 +47,9 @@ class VisionConversion:
             conversion
         )
 
-    def __del__(self):
+    def __del__(
+        self
+    ):
         del self.conversion_format
 
     def convert(
