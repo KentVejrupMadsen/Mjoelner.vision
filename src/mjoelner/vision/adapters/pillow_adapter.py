@@ -21,6 +21,8 @@ class VisionAdapterForPillow(
     def retrieve_image_as(
         self
     ) -> Image:
+        self.to_queue()
+
         return fromarray(
             self.get_stream().get_buffer_image()
         )

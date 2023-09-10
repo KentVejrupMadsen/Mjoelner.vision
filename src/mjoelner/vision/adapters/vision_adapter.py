@@ -36,3 +36,9 @@ class VisionAdapter(
     ) -> None:
         self.stream = value
 
+    def to_queue(
+        self
+    ):
+        if self.get_stream().is_buffer_image_empty():
+            self.get_stream().capture()
+
