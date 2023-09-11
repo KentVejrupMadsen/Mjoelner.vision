@@ -19,7 +19,7 @@ class VisionStream:
         self,
         device_capture: str,
         automatic_conversion: bool = True,
-        conversion_type: str = '2rgb'
+        conversion_type: str = 'on'
     ):
         self.capture_device = VideoCapture(
             device_capture
