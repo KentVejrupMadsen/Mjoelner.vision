@@ -1,9 +1,9 @@
-from mjoelner.vision.hooks.hook \
-    import Hook
+from mjoelner.vision.hooks.visionhook \
+    import VisionHook
 
 
 class StreamOnHook(
-    Hook
+    VisionHook
 ):
     def __init__(self):
         super().__init__()

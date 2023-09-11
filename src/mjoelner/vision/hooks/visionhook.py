@@ -4,7 +4,7 @@ from abc            \
     abstractmethod
 
 
-class Hook(
+class VisionHook(
     ABC
 ):
     def __init__(self):

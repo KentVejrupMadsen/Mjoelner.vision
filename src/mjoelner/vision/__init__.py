@@ -1,3 +1,6 @@
+from mjoelner.vision.vision             \
+    import VisionApi
+
 from mjoelner.vision.image              \
     import VisionImage
 

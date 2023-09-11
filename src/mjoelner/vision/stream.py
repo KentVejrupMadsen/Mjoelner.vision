@@ -1,11 +1,11 @@
+from mjoelner.vision \
+    import VisionApi
+
 from mjoelner.vision.conversions \
     import VisionConversion
 
-from mjoelner.vision.setup \
-    import setup_conversion
-
 from mjoelner.vision.hooks \
-    import Hook
+    import VisionHook
 
 from cv2 \
     import VideoCapture
@@ -14,40 +14,36 @@ from numpy \
     import ndarray
 
 
-class VisionStream:
+def zero() -> int:
+    return 0
+
+
+class VisionStream(
+    VisionApi
+):
     def __init__(
         self,
-        device_capture: str,
-        automatic_conversion: bool = True,
-        conversion_type: str = 'on'
+        device_capture: str
     ):
+        super().__init__()
         self.capture_device = VideoCapture(
             device_capture
         )
 
-        self.hook: Hook | None = None
         self.is_done: bool = False
-
-        self.conversion: VisionConversion | None = VisionConversion()
         self.buffer_image: ndarray | None = None
 
-        if automatic_conversion:
-            setup_conversion(
-                self,
-                conversion_type
-            )
+        self.events: list | None = None
 
     def __del__(
         self
     ):
         self.release()
-
         del                         \
             self.capture_device,    \
-            self.conversion,        \
             self.is_done,           \
-            self.hook,              \
-            self.buffer_image
+            self.buffer_image,      \
+            self.events
 
     # On action
     def stream(
@@ -73,40 +69,14 @@ class VisionStream:
             self.flag_is_done()
             return None
 
-        if self.is_hook_instantiated():
-            if self.get_hook().on_condition():
-                image = self.conversion.convert(
-                    image
-                )
-
         self.set_buffer_image(
             image
         )
 
+        self.update_events()
         return self.get_buffer_image()
 
     # State Management
-    def is_hook_empty(
-        self
-    ) -> bool:
-        return self.hook is None
-
-    def is_hook_instantiated(
-        self
-    ) -> bool:
-        return not self.is_hook_empty()
-
-    def get_hook(
-        self
-    ) -> Hook | None:
-        return self.hook
-
-    def set_hook(
-        self,
-        value: Hook
-    ) -> None:
-        self.hook = value
-
     def is_open(
         self
     ):
@@ -168,3 +138,45 @@ class VisionStream:
         self
     ) -> bool:
         return self.buffer_image is None
+
+    def get_events(
+        self
+    ) -> list:
+        if self.is_events_none():
+            self.set_events(
+                list()
+            )
+
+        return self.events
+
+    def set_events(
+        self,
+        value: list
+    ) -> None:
+        self.events = value
+
+    def is_events_none(
+        self
+    ) -> bool:
+        return self.events is None
+
+    def is_events_empty(
+        self
+    ) -> bool:
+        return bool(
+            len(self.events) == zero()
+        )
+
+    def append_event(
+        self,
+        event
+    ) -> None:
+        self.get_events().append(
+            event
+        )
+
+    def update_events(
+        self
+    ):
+        for event in self.get_events():
+            event.update()
