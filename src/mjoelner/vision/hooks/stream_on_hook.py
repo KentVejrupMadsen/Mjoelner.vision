@@ -1,12 +1,18 @@
-from mjoelner.vision.hooks.visionhook \
-    import VisionHook
+from mjoelner.vision.hooks \
+    import StreamConversionHook
 
 
 class StreamOnHook(
-    VisionHook
+    StreamConversionHook
 ):
-    def __init__(self):
-        super().__init__()
+    def __init__(
+        self,
+        vision
+    ):
+        super().__init__(
+            vision
+        )
+
         self.value: bool = True
 
     def on_condition(
@@ -24,3 +30,17 @@ class StreamOnHook(
         value: bool
     ) -> None:
         self.value = value
+
+    def run_hook(
+        self
+    ) -> None:
+        image = self.get_vision_interface().get_buffer_image()
+
+        image = self.conversion.convert(
+            image
+        )
+
+        self.get_vision_interface().set_buffer_image(
+            image
+        )
+

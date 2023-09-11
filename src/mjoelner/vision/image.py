@@ -1,9 +1,6 @@
 from mjoelner.vision \
     import VisionApi
 
-from mjoelner.vision.conversions \
-    import VisionConversion
-
 from cv2 \
     import imread
 

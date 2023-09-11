@@ -1,11 +1,8 @@
 from mjoelner.vision \
     import VisionApi
 
-from mjoelner.vision.conversions \
-    import VisionConversion
-
 from mjoelner.vision.hooks \
-    import VisionHook
+    import StreamOnHook
 
 from cv2 \
     import VideoCapture
@@ -31,19 +28,30 @@ class VisionStream(
         )
 
         self.is_done: bool = False
-        self.buffer_image: ndarray | None = None
 
         self.events: list | None = None
+        self.hooks: list | None = None
+
+        self.setup()
 
     def __del__(
         self
     ):
         self.release()
+
         del                         \
             self.capture_device,    \
             self.is_done,           \
             self.buffer_image,      \
-            self.events
+            self.events,            \
+            self.hooks
+
+    def setup(self):
+        self.get_hooks().append(
+            StreamOnHook(
+                self
+            )
+        )
 
     # On action
     def stream(
@@ -73,7 +81,9 @@ class VisionStream(
             image
         )
 
+        self.update_hooks()
         self.update_events()
+
         return self.get_buffer_image()
 
     # State Management
@@ -123,21 +133,43 @@ class VisionStream(
     ) -> None:
         self.capture_device = value
 
-    def get_buffer_image(
+    def update_hooks(
         self
-    ) -> ndarray:
-        return self.buffer_image
+    ):
+        for hook in self.get_hooks():
+            hook.run()
 
-    def set_buffer_image(
+    def get_hooks(
+        self
+    ) -> list:
+        if self.is_hooks_none():
+            self.set_hooks(
+                list()
+            )
+
+        return self.hooks
+
+    def set_hooks(
         self,
-        image: ndarray
+        value: list
     ) -> None:
-        self.buffer_image = image
+        self.hooks = value
 
-    def is_buffer_image_empty(
+    def is_hooks_none(
         self
     ) -> bool:
-        return self.buffer_image is None
+        return self.hooks is None
+
+    def is_hooks_empty(
+        self
+    ):
+        return bool(
+            len(
+                self.get_hooks()
+            )
+            ==
+            zero()
+        )
 
     def get_events(
         self
@@ -164,7 +196,11 @@ class VisionStream(
         self
     ) -> bool:
         return bool(
-            len(self.events) == zero()
+            len(
+                self.events
+            )
+            ==
+            zero()
         )
 
     def append_event(
